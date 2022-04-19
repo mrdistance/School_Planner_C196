@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">School Planner</string>
+    <string name="term_title">TERMS</string>
+    <string name="main_title">Welcome to School Planner</string>
+    <string name="main_button_text">Click to Enter</string>
+    <string name="enter_term_name">Enter Term Name</string>
+    <string name="course_title">COURSES</string>
+    <string name="enter_start_date">Enter Start Date</string>
+    <string name="enter_end_date">Enter End Date</string>
+    <string name="go_to_courses">GO TO COURSES</string>
+    <string name="save">SAVE</string>
+    <string name="delete">DELETE</string>
 </resources>

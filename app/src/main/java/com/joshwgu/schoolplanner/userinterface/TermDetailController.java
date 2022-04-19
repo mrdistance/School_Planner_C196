@@ -8,21 +8,27 @@ import android.view.View;
 
 import com.joshwgu.schoolplanner.R;
 
-public class TermController extends AppCompatActivity {
+public class TermDetailController extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_term);
+        setContentView(R.layout.activity_term_detail);
     }
 
-    public void addTerm(View view) {
-        Intent intent = new Intent(TermController.this, TermDetailController.class);
+
+    public void goToCourses(View view) {
+        Intent intent = new Intent(TermDetailController.this, CourseDetailController.class);
         startActivity(intent);
     }
 
-    //todo add code to click on term in scroll view and enter term detail activity with prefilled data
-    public void editTerm(View view){
+    public void delete(View view){
 
     }
+
+    public void save(View view){
+
+    }
+
+
 }

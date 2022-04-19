@@ -9,7 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolPlanner">
-
+        <activity
+            android:name=".userinterface.InstructorDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".userinterface.InstructorController"
+            android:exported="false" />
+        <activity
+            android:name=".userinterface.NoteDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".userinterface.NoteController"
+            android:exported="false" />
+        <activity
+            android:name=".userinterface.AssessmentDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".userinterface.CourseDetailController"
+            android:exported="false" />
+        <activity
+            android:name=".userinterface.TermDetailController"
+            android:exported="false" />
         <activity
             android:name=".userinterface.AssessmentController"
             android:exported="false" />
@@ -18,7 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".userinterface.TermController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.MainActivity" />
         <activity
             android:name=".userinterface.MainActivity"
             android:exported="true">

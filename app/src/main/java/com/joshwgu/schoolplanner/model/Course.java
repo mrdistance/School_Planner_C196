@@ -9,7 +9,7 @@ public class Course {
     private String status;
     private final ArrayList<Instructor> instructors;
     private final ArrayList<Assessment> assessments;
-    private final ArrayList<String> notes;
+    private final ArrayList<Note> notes;
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -46,15 +46,15 @@ public class Course {
         return this.assessments;
     }
 
-    public void addNote(String note){
+    public void addNote(Note note){
         notes.add(note);
     }
 
-    public void deleteNote(String note){
+    public void deleteNote(Note note){
         notes.remove(note);
     }
 
-    public ArrayList<String> getNotes(){
+    public ArrayList<Note> getNotes(){
         return this.notes;
     }
 

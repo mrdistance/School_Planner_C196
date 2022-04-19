@@ -4,6 +4,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userinterface.TermController">
+    tools:context=".userinterface.TermDetailController">
 
+    <EditText
+        android:id="@+id/startDateText"
+        android:layout_width="170dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/enter_start_date"
+        android:inputType="date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termNameText" />
+
+    <EditText
+        android:id="@+id/endDateText"
+        android:layout_width="178dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/enter_end_date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termNameText" />
+
+    <EditText
+        android:id="@+id/termNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/enter_term_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/termSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="64dp"
+        android:backgroundTint="#125AC5"
+        android:text="@string/save"
+        android:onClick="save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termCoursesButton" />
+
+    <Button
+        android:id="@+id/termDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#125AC5"
+        android:text="@string/delete"
+        android:onClick="delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termCoursesButton" />
+
+    <Button
+        android:id="@+id/termCoursesButton"
+        android:layout_width="277dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="128dp"
+        android:backgroundTint="#125AC5"
+        android:text="@string/go_to_courses"
+        android:textSize="34sp"
+        android:onClick="goToCourses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termNameText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
