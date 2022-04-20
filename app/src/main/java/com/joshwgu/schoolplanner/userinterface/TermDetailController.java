@@ -18,16 +18,18 @@ public class TermDetailController extends AppCompatActivity {
 
 
     public void goToCourses(View view) {
-        Intent intent = new Intent(TermDetailController.this, CourseDetailController.class);
+        Intent intent = new Intent(TermDetailController.this, CourseController.class);
         startActivity(intent);
     }
 
-    public void delete(View view){
+    public void save(View view) {
+    }
+
+    public void edit(View view){
 
     }
 
-    public void save(View view){
-
+    public void delete(View view) {
     }
 
 

@@ -4,10 +4,25 @@
     <string name="main_title">Welcome to School Planner</string>
     <string name="main_button_text">Click to Enter</string>
     <string name="enter_term_name">Enter Term Name</string>
+    <string name="enter_course_name">Enter Course Name</string>
+    <string name="enter_assessment_name">Enter Assessment Name</string>
     <string name="course_title">COURSES</string>
+    <string name="assessment_title">ASSESSMENTS</string>
     <string name="enter_start_date">Enter Start Date</string>
     <string name="enter_end_date">Enter End Date</string>
     <string name="go_to_courses">GO TO COURSES</string>
+    <string name="go_to_assessments">GO TO ASSESSMENTS</string>
+    <string name="go_to_notes">GO TO NOTES</string>
+    <string name="go_to_instructors">GO TO INSTRUCTORS</string>
+    <string name="progress">PROGRESS</string>
+    <string name="type">TYPE</string>
+    <string name="name">NAME</string>
+    <string name="phone">PHONE</string>
+    <string name="email">EMAIL</string>
     <string name="save">SAVE</string>
+    <string name="note_title">NOTES</string>
+    <string name="instructor_title">INSTRUCTORS</string>
     <string name="delete">DELETE</string>
+    <string name="edit">EDIT</string>
+    <string name="write_note_here">WRITE NOTE HERE...</string>
 </resources>

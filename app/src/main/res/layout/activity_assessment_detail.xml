@@ -6,4 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".userinterface.AssessmentDetailController">
 
+    <EditText
+        android:id="@+id/startDateText"
+        android:layout_width="170dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/enter_start_date"
+        android:inputType="date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <EditText
+        android:id="@+id/endDateText"
+        android:layout_width="178dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/enter_end_date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <EditText
+        android:id="@+id/assessmentNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/enter_assessment_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/assessmentSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="452dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="save"
+        android:text="@string/save"
+        app:layout_constraintStart_toEndOf="@+id/assessmentEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <Button
+        android:id="@+id/assessmentDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="452dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="delete"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toStartOf="@+id/assessmentEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <Button
+        android:id="@+id/assessmentEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="452dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="edit"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/type"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/typeSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/typeSpinner"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="260dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

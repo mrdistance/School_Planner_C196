@@ -6,4 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".userinterface.NoteDetailController">
 
+    <EditText
+        android:id="@+id/noteNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/noteContent"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/write_note_here"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
+
+    <Button
+        android:id="@+id/noteSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="480dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="save"
+        android:text="@string/save"
+        app:layout_constraintStart_toEndOf="@+id/noteEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
+
+    <Button
+        android:id="@+id/noteDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="delete"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toStartOf="@+id/noteEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
+
+    <Button
+        android:id="@+id/noteEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="edit"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

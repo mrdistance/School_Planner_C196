@@ -46,28 +46,40 @@
         android:id="@+id/termSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="64dp"
         android:backgroundTint="#125AC5"
-        android:text="@string/save"
         android:onClick="save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termCoursesButton" />
+        android:text="@string/save"
+        app:layout_constraintStart_toEndOf="@+id/termEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
 
     <Button
         android:id="@+id/termDeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="#125AC5"
-        android:text="@string/delete"
         android:onClick="delete"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termCoursesButton" />
+        android:text="@string/delete"
+        app:layout_constraintEnd_toStartOf="@+id/termEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
 
     <Button
-        android:id="@+id/termCoursesButton"
+        android:id="@+id/termEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="edit"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+
+    <Button
+        android:id="@+id/courseAssessmentButton"
         android:layout_width="277dp"
         android:layout_height="275dp"
         android:layout_marginTop="128dp"

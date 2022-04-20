@@ -6,4 +6,139 @@
     android:layout_height="match_parent"
     tools:context=".userinterface.CourseDetailController">
 
+    <EditText
+        android:id="@+id/startDateText"
+        android:layout_width="170dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/enter_start_date"
+        android:inputType="date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <EditText
+        android:id="@+id/endDateText"
+        android:layout_width="178dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/enter_end_date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+
+    <EditText
+        android:id="@+id/assessmentNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/enter_course_name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/courseSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="save"
+        android:text="@string/save"
+        app:layout_constraintStart_toEndOf="@+id/courseEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+
+    <Button
+        android:id="@+id/courseDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="delete"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toStartOf="@+id/courseEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+
+    <Button
+        android:id="@+id/courseEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="edit"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+
+    <Button
+        android:id="@+id/courseAssessmentButton"
+        android:layout_width="383dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="goToAssessments"
+        android:text="@string/go_to_assessments"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseInstructorsButton" />
+
+    <Button
+        android:id="@+id/courseNotesButton"
+        android:layout_width="383dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="152dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="goToNotes"
+        android:text="@string/go_to_notes"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
+    <Button
+        android:id="@+id/courseInstructorsButton"
+        android:layout_width="383dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="goToInstructors"
+        android:text="@string/go_to_instructors"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseNotesButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/progress"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/progressSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/progressSpinner" />
+
+    <Spinner
+        android:id="@+id/progressSpinner"
+        android:layout_width="235dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
