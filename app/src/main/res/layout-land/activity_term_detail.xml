@@ -10,35 +10,36 @@
         android:id="@+id/startDateText"
         android:layout_width="170dp"
         android:layout_height="43dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/enter_start_date"
         android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/termNameText"
+        app:layout_constraintStart_toStartOf="@+id/termNameText"
         app:layout_constraintTop_toBottomOf="@+id/termNameText" />
 
     <EditText
         android:id="@+id/endDateText"
         android:layout_width="178dp"
         android:layout_height="43dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/enter_end_date"
         android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termNameText" />
+        app:layout_constraintEnd_toEndOf="@+id/startDateText"
+        app:layout_constraintStart_toStartOf="@+id/startDateText"
+        app:layout_constraintTop_toBottomOf="@+id/startDateText" />
 
     <EditText
         android:id="@+id/termNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="@string/enter_term_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.786"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,48 +48,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
         android:backgroundTint="#125AC5"
         android:onClick="save"
         android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="@+id/termEditButton"
         app:layout_constraintStart_toEndOf="@+id/termEditButton"
-        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+        app:layout_constraintTop_toTopOf="@+id/termEditButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/termDeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="#125AC5"
         android:onClick="delete"
         android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="@+id/termEditButton"
         app:layout_constraintEnd_toStartOf="@+id/termEditButton"
-        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+        app:layout_constraintTop_toTopOf="@+id/termEditButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/termEditButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="#125AC5"
         android:onClick="edit"
         android:text="@string/edit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseAssessmentButton" />
+        app:layout_constraintTop_toBottomOf="@+id/endDateText" />
 
     <Button
         android:id="@+id/courseAssessmentButton"
         android:layout_width="210dp"
-        android:layout_height="189dp"
-        android:layout_marginTop="184dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="112dp"
         android:backgroundTint="#125AC5"
         android:onClick="goToCourses"
         android:text="@string/go_to_courses"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termNameText" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

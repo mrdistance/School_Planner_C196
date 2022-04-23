@@ -11,35 +11,55 @@
         android:theme="@style/Theme.SchoolPlanner">
         <activity
             android:name=".userinterface.InstructorDetailController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.InstructorController"
+            android:label="Instructor Edit"/>
         <activity
             android:name=".userinterface.InstructorController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.CourseDetailController"
+            android:label="Instructors"/>
         <activity
             android:name=".userinterface.NoteDetailController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.NoteController"
+            android:label="Note Edit"/>
         <activity
             android:name=".userinterface.NoteController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.CourseDetailController"
+            android:label="Notes"/>
         <activity
             android:name=".userinterface.AssessmentDetailController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.AssessmentController"
+            android:label="Assessment Edit"/>
+
         <activity
             android:name=".userinterface.CourseDetailController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.CourseController"
+            android:label="Course Edit"/>
         <activity
             android:name=".userinterface.TermDetailController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.TermController"
+            android:label="Term Edit"/>
         <activity
             android:name=".userinterface.AssessmentController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.CourseDetailController"
+            android:label="Assessments"/>
         <activity
             android:name=".userinterface.CourseController"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".userinterface.TermDetailController"
+            android:label="Courses"/>
         <activity
             android:name=".userinterface.TermController"
             android:exported="false"
-            android:parentActivityName=".userinterface.MainActivity" />
+            android:parentActivityName=".userinterface.MainActivity"
+            android:label="Terms"/>
         <activity
             android:name=".userinterface.MainActivity"
             android:exported="true">

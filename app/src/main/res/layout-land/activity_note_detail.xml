@@ -19,6 +19,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+    <Button
+        android:id="@+id/noteSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="save"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="@+id/noteEditButton"
+        app:layout_constraintStart_toEndOf="@+id/noteEditButton"
+        app:layout_constraintTop_toTopOf="@+id/noteEditButton" />
+
+    <Button
+        android:id="@+id/noteDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="delete"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="@+id/noteEditButton"
+        app:layout_constraintEnd_toStartOf="@+id/noteEditButton"
+        app:layout_constraintTop_toTopOf="@+id/noteEditButton" />
+
+    <Button
+        android:id="@+id/noteEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
+        android:backgroundTint="#125AC5"
+        android:onClick="edit"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
+
     <EditText
         android:id="@+id/noteContent"
         android:layout_width="340dp"
@@ -30,43 +69,6 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
-
-    <Button
-        android:id="@+id/noteSaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="432dp"
-        android:backgroundTint="#125AC5"
-        android:onClick="save"
-        android:text="@string/save"
-        app:layout_constraintStart_toEndOf="@+id/noteEditButton"
-        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
-
-    <Button
-        android:id="@+id/noteDeleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="432dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#125AC5"
-        android:onClick="delete"
-        android:text="@string/delete"
-        app:layout_constraintEnd_toStartOf="@+id/noteEditButton"
-        app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
-
-    <Button
-        android:id="@+id/noteEditButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="432dp"
-        android:backgroundTint="#125AC5"
-        android:onClick="edit"
-        android:text="@string/edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteNameText" />
 
@@ -83,8 +85,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_share_24" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

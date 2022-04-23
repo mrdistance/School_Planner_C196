@@ -11,7 +11,7 @@
         android:id="@+id/mainTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="16dp"
         android:text="@string/main_title"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -19,17 +19,16 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="404dp"
-        android:layout_height="362dp"
+        android:layout_width="410dp"
+        android:layout_height="202dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainTitle"
         app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -38,7 +37,7 @@
         android:id="@+id/mainButton"
         android:layout_width="367dp"
         android:layout_height="71dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#125AC5"
         android:onClick="enter"
         android:text="@string/main_button_text"
