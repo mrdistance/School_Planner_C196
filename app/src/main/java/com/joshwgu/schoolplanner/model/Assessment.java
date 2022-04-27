@@ -4,15 +4,19 @@ import java.time.LocalDate;
 
 public class Assessment {
 
+    private int id;
     private String type;
     private String title;
+    private int courseId;
     private LocalDate startDate;
     private LocalDate endDate;
 
 
-    public Assessment(String type, String title, LocalDate startDate, LocalDate endDate){
+    public Assessment(int id, String title, LocalDate startDate, LocalDate endDate, String type, int courseId ){
+        this.id = id;
         this.type = type;
         this.title = title;
+        this.courseId = courseId;
         this.startDate = startDate;
         this.endDate = endDate;
     }

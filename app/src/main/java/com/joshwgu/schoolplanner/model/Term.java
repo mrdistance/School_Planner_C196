@@ -5,12 +5,14 @@ import java.util.ArrayList;
 
 public class Term {
 
+    private int id;
     private String title;
     private LocalDate startDate;
     private LocalDate endDate;
     private final ArrayList<Course>  courses;
 
-    public Term(String title, LocalDate startDate, LocalDate endDate){
+    public Term(int id, String title, LocalDate startDate, LocalDate endDate){
+        this.id = id;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
