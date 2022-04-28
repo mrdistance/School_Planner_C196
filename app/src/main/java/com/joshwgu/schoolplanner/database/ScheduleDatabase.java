@@ -306,4 +306,142 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
     }
 
 
+//===========================================================Update Statements=====================================================================================================
+
+    public boolean updateTerm(long id, String name, int startDate, int endDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TermsTable.COL_NAME, name);
+        values.put(TermsTable.COL_START_DATE, startDate);
+        values.put(TermsTable.COL_END_DATE, endDate);
+        int rowsUpdated = db.update(TermsTable.TABLE, values, "_id = ?",
+                new String[] { Float.toString(id) });
+        return rowsUpdated > 0;
+    }
+
+    public boolean updateCourse(long id, String name, int startDate, int endDate, String progress, int fk) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CoursesTable.COL_NAME, name);
+        values.put(CoursesTable.COL_START_DATE, startDate);
+        values.put(CoursesTable.COL_END_DATE, endDate);
+        values.put(CoursesTable.COL_PROGRESS, progress);
+        values.put(CoursesTable.COL_FK, fk);
+        int rowsUpdated = db.update(CoursesTable.TABLE, values, "_id = ?",
+                new String[] { Float.toString(id) });
+        return rowsUpdated > 0;
+    }
+
+    public boolean updateAssessment(long id, String name, int startDate, int endDate, String type, int fk) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(AssessmentsTable.COL_NAME, name);
+        values.put(AssessmentsTable.COL_START_DATE, startDate);
+        values.put(AssessmentsTable.COL_END_DATE, endDate);
+        values.put(AssessmentsTable.COL_TYPE, type);
+        values.put(AssessmentsTable.COL_FK, fk);
+        int rowsUpdated = db.update(AssessmentsTable.TABLE, values, "_id = ?",
+                new String[] { Float.toString(id) });
+        return rowsUpdated > 0;
+    }
+
+    public boolean updateInstructor(long id, String name, String phone, String email, int fk) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(InstructorsTable.COL_NAME, name);
+        values.put(InstructorsTable.COL_PHONE, phone);
+        values.put(InstructorsTable.COL_EMAIL, email);
+        values.put(InstructorsTable.COL_FK, fk);
+        int rowsUpdated = db.update(InstructorsTable.TABLE, values, "_id = ?",
+                new String[] { Float.toString(id) });
+        return rowsUpdated > 0;
+    }
+
+    public boolean updateNote(long id, String name, String content, int fk) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NotesTable.COL_NAME, name);
+        values.put(NotesTable.COL_CONTENT, content);
+        values.put(NotesTable.COL_FK, fk);
+        int rowsUpdated = db.update(NotesTable.TABLE, values, "_id = ?",
+                new String[] { Float.toString(id) });
+        return rowsUpdated > 0;
+    }
+
+
+
+//=============================================================Delete Statements===================================================================================
+
+
+    public boolean deleteTerm(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        //Check that term has no courses
+        String sql = "select * from " + CoursesTable.TABLE + " where term_id = ?";
+        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(id)});
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return false;
+        }else {
+            cursor.close();
+            int rowsDeleted = db.delete(TermsTable.TABLE, TermsTable.COL_ID + " = ?",
+                    new String[]{Long.toString(id)});
+            return rowsDeleted > 0;
+        }
+    }
+
+
+    public boolean deleteCourse(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        deleteAssessments(id);
+        deleteInstructors(id);
+        deleteNotes(id);
+        int rowsDeleted = db.delete(CoursesTable.TABLE, CoursesTable.COL_ID + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+    public boolean deleteAssessment(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowsDeleted = db.delete(AssessmentsTable.TABLE, AssessmentsTable.COL_ID + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+    public boolean deleteInstructor(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowsDeleted = db.delete(InstructorsTable.TABLE, InstructorsTable.COL_ID + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+    public boolean deleteNote(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowsDeleted = db.delete(NotesTable.TABLE, NotesTable.COL_ID + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+    private boolean deleteAssessments(long id){
+        SQLiteDatabase db = getWritableDatabase();
+        int rowsDeleted = db.delete(AssessmentsTable.TABLE, AssessmentsTable.COL_FK + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+    private boolean deleteInstructors(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowsDeleted = db.delete(InstructorsTable.TABLE, InstructorsTable.COL_FK + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+    private boolean deleteNotes(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int rowsDeleted = db.delete(NotesTable.TABLE, NotesTable.COL_FK + " = ?",
+                new String[] { Long.toString(id) });
+        return rowsDeleted > 0;
+    }
+
+
+
 }

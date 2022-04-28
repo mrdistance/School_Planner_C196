@@ -8,9 +8,6 @@ public class Course {
     private int id;
     private String title;
     private String status;
-    private final ArrayList<Instructor> instructors;
-    private final ArrayList<Assessment> assessments;
-    private final ArrayList<Note> notes;
     private LocalDate startDate;
     private LocalDate endDate;
     private int termId;
@@ -22,44 +19,7 @@ public class Course {
         this.endDate = endDate;
         this.status = status;
         this.termId = termId;
-        instructors = new ArrayList<>();
-        assessments = new ArrayList<>();
-        notes = new ArrayList<>();
-    }
-    public void addInstructor(Instructor instructor){
-        this.instructors.add(instructor);
-    }
 
-    public void deleteInstructor(Instructor instructor){
-        instructors.remove(instructor);
-    }
-
-    public ArrayList<Instructor> getInstructors(){
-        return this.instructors;
-    }
-
-    public void addAssessment(Assessment assessment){
-        assessments.add(assessment);
-    }
-
-    public void deleteAssessment(Assessment assessment){
-        assessments.remove(assessment);
-    }
-
-    public ArrayList<Assessment> getAssessments(){
-        return this.assessments;
-    }
-
-    public void addNote(Note note){
-        notes.add(note);
-    }
-
-    public void deleteNote(Note note){
-        notes.remove(note);
-    }
-
-    public ArrayList<Note> getNotes(){
-        return this.notes;
     }
 
     public String getTitle() {
