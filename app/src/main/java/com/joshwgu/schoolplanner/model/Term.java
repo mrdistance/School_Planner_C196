@@ -7,17 +7,31 @@ public class Term {
 
     private int id;
     private String title;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private long startDate;
+    private long endDate;
 
-    public Term(int id, String title, LocalDate startDate, LocalDate endDate){
+
+    public Term( String title, long startDate, long endDate){
+        this.id = 0;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Term(int id, String title, long startDate, long endDate){
         this.id = id;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }
@@ -26,19 +40,19 @@ public class Term {
         this.title = title;
     }
 
-    public LocalDate getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(long endDate) {
         this.endDate = endDate;
     }
 

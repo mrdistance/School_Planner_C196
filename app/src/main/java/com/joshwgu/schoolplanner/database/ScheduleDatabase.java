@@ -15,7 +15,6 @@ import com.joshwgu.schoolplanner.model.Term;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class ScheduleDatabase extends SQLiteOpenHelper {
@@ -132,57 +131,57 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
     }
 
 //============================================================================Insert Statements=================================================================
-    public long addTerm(String name, int startDate, int endDate) {
+    public long addTerm(Term term) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TermsTable.COL_NAME, name);
-        values.put(TermsTable.COL_START_DATE, startDate);
-        values.put(TermsTable.COL_END_DATE, endDate);
+        values.put(TermsTable.COL_NAME, term.getTitle());
+        values.put(TermsTable.COL_START_DATE, term.getStartDate());
+        values.put(TermsTable.COL_END_DATE, term.getEndDate());
         long termId = db.insert(TermsTable.TABLE, null, values);
         return termId;
     }
 
-    public long addCourse(String name, int startDate, int endDate, String progress, int fk ) {
+    public long addCourse(Course course) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CoursesTable.COL_NAME, name);
-        values.put(CoursesTable.COL_START_DATE, startDate);
-        values.put(CoursesTable.COL_END_DATE, endDate);
-        values.put(CoursesTable.COL_PROGRESS, progress);
-        values.put(CoursesTable.COL_FK, fk);
+        values.put(CoursesTable.COL_NAME, course.getTitle());
+        values.put(CoursesTable.COL_START_DATE, course.getStartDate());
+        values.put(CoursesTable.COL_END_DATE, course.getEndDate());
+        values.put(CoursesTable.COL_PROGRESS, course.getStatus());
+        values.put(CoursesTable.COL_FK, course.getTermId());
         long courseId = db.insert(CoursesTable.TABLE, null, values);
         return courseId;
     }
 
-    public long addAssessment(String name, int startDate, int endDate, String type, int fk ) {
+    public long addAssessment(Assessment assessment) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(AssessmentsTable.COL_NAME, name);
-        values.put(AssessmentsTable.COL_START_DATE, startDate);
-        values.put(AssessmentsTable.COL_END_DATE, endDate);
-        values.put(AssessmentsTable.COL_TYPE, type);
-        values.put(AssessmentsTable.COL_FK, fk);
+        values.put(AssessmentsTable.COL_NAME, assessment.getTitle());
+        values.put(AssessmentsTable.COL_START_DATE, assessment.getStartDate());
+        values.put(AssessmentsTable.COL_END_DATE, assessment.getEndDate());
+        values.put(AssessmentsTable.COL_TYPE, assessment.getType());
+        values.put(AssessmentsTable.COL_FK, assessment.getCourseId());
         long assessmentId = db.insert(AssessmentsTable.TABLE, null, values);
         return assessmentId;
     }
 
-    public long addInstructor(String name, String phone, String email, int fk ) {
+    public long addInstructor(Instructor instructor) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(InstructorsTable.COL_NAME, name);
-        values.put(InstructorsTable.COL_PHONE, phone);
-        values.put(InstructorsTable.COL_EMAIL, email);
-        values.put(InstructorsTable.COL_FK, fk);
+        values.put(InstructorsTable.COL_NAME, instructor.getName());
+        values.put(InstructorsTable.COL_PHONE, instructor.getPhone());
+        values.put(InstructorsTable.COL_EMAIL, instructor.getEmail());
+        values.put(InstructorsTable.COL_FK, instructor.getCourseId());
         long instructorId = db.insert(InstructorsTable.TABLE, null, values);
         return instructorId;
     }
 
-    public long addNote(String name, String content, int fk ) {
+    public long addNote(Note note) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(NotesTable.COL_NAME, name);
-        values.put(NotesTable.COL_CONTENT, content);
-        values.put(NotesTable.COL_FK, fk);
+        values.put(NotesTable.COL_NAME, note.getName());
+        values.put(NotesTable.COL_CONTENT, note.getContent());
+        values.put(NotesTable.COL_FK, note.getCourseId());
         long noteId = db.insert(NotesTable.TABLE, null, values);
         return noteId;
     }
@@ -206,17 +205,18 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
                 Term term = new Term(id, name, startDate, endDate);
                 terms.add(term);
             } while (cursor.moveToNext());
+            cursor.close();
             return terms;
         }
         cursor.close();
         return null;
     }
 
-    public ArrayList<Course> getCourses(int searchId) {
+    public ArrayList<Course> getCourses(Term term) {
         SQLiteDatabase db = getReadableDatabase();
 
         String sql = "select * from " + CoursesTable.TABLE + " where term_id = ?";
-        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(searchId)});
+        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(term.getId())});
         if (cursor.moveToFirst()) {
             ArrayList<Course> courses = new ArrayList<>();
             do {
@@ -230,17 +230,18 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
                 Course course = new Course(id, name, startDate, endDate, progress, termId);
                 courses.add(course);
             } while (cursor.moveToNext());
+            cursor.close();
             return courses;
         }
         cursor.close();
         return null;
     }
 
-    public ArrayList<Assessment> getAssessments(int searchId) {
+    public ArrayList<Assessment> getAssessments(Course course) {
         SQLiteDatabase db = getReadableDatabase();
 
         String sql = "select * from " + AssessmentsTable.TABLE + " where course_id = ?";
-        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(searchId)});
+        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(course.getId())});
         if (cursor.moveToFirst()) {
             ArrayList<Assessment> assessments = new ArrayList<>();
             do {
@@ -254,17 +255,18 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
                 Assessment assessment = new Assessment(id, name, startDate, endDate, type, courseId);
                 assessments.add(assessment);
             } while (cursor.moveToNext());
+            cursor.close();
             return assessments;
         }
         cursor.close();
         return null;
     }
 
-    public ArrayList<Instructor> getInstructors(int searchId) {
+    public ArrayList<Instructor> getInstructors(Course course) {
         SQLiteDatabase db = getReadableDatabase();
 
         String sql = "select * from " + InstructorsTable.TABLE + " where course_id = ?";
-        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(searchId)});
+        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(course.getId())});
         if (cursor.moveToFirst()) {
             ArrayList<Instructor> instructors = new ArrayList<>();
             do {
@@ -277,17 +279,18 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
                 Instructor instructor = new Instructor(id, name, phone, email, courseId);
                 instructors.add(instructor);
             } while (cursor.moveToNext());
+            cursor.close();
             return instructors;
         }
         cursor.close();
         return null;
     }
 
-    public ArrayList<Note> getNotes(int searchId) {
+    public ArrayList<Note> getNotes(Course course) {
         SQLiteDatabase db = getReadableDatabase();
 
         String sql = "select * from " + NotesTable.TABLE + " where course_id = ?";
-        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(searchId)});
+        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(course.getId())});
         if (cursor.moveToFirst()) {
             ArrayList<Note> notes = new ArrayList<>();
             do {
@@ -299,6 +302,7 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
                 Note note = new Note(id, name, content, courseId);
                 notes.add(note);
             } while (cursor.moveToNext());
+            cursor.close();
             return notes;
         }
         cursor.close();
@@ -308,63 +312,63 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
 
 //===========================================================Update Statements=====================================================================================================
 
-    public boolean updateTerm(long id, String name, int startDate, int endDate) {
+    public boolean updateTerm(Term term) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TermsTable.COL_NAME, name);
-        values.put(TermsTable.COL_START_DATE, startDate);
-        values.put(TermsTable.COL_END_DATE, endDate);
+        values.put(TermsTable.COL_NAME, term.getTitle());
+        values.put(TermsTable.COL_START_DATE, term.getStartDate());
+        values.put(TermsTable.COL_END_DATE, term.getEndDate());
         int rowsUpdated = db.update(TermsTable.TABLE, values, "_id = ?",
-                new String[] { Float.toString(id) });
+                new String[] { Float.toString(term.getId()) });
         return rowsUpdated > 0;
     }
 
-    public boolean updateCourse(long id, String name, int startDate, int endDate, String progress, int fk) {
+    public boolean updateCourse(Course course) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CoursesTable.COL_NAME, name);
-        values.put(CoursesTable.COL_START_DATE, startDate);
-        values.put(CoursesTable.COL_END_DATE, endDate);
-        values.put(CoursesTable.COL_PROGRESS, progress);
-        values.put(CoursesTable.COL_FK, fk);
+        values.put(CoursesTable.COL_NAME, course.getTitle());
+        values.put(CoursesTable.COL_START_DATE, course.getStartDate());
+        values.put(CoursesTable.COL_END_DATE, course.getEndDate());
+        values.put(CoursesTable.COL_PROGRESS, course.getStatus());
+        values.put(CoursesTable.COL_FK, course.getTermId());
         int rowsUpdated = db.update(CoursesTable.TABLE, values, "_id = ?",
-                new String[] { Float.toString(id) });
+                new String[] { Float.toString(course.getId()) });
         return rowsUpdated > 0;
     }
 
-    public boolean updateAssessment(long id, String name, int startDate, int endDate, String type, int fk) {
+    public boolean updateAssessment(Assessment assessment) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(AssessmentsTable.COL_NAME, name);
-        values.put(AssessmentsTable.COL_START_DATE, startDate);
-        values.put(AssessmentsTable.COL_END_DATE, endDate);
-        values.put(AssessmentsTable.COL_TYPE, type);
-        values.put(AssessmentsTable.COL_FK, fk);
+        values.put(AssessmentsTable.COL_NAME, assessment.getTitle());
+        values.put(AssessmentsTable.COL_START_DATE, assessment.getStartDate());
+        values.put(AssessmentsTable.COL_END_DATE, assessment.getEndDate());
+        values.put(AssessmentsTable.COL_TYPE, assessment.getType());
+        values.put(AssessmentsTable.COL_FK, assessment.getCourseId());
         int rowsUpdated = db.update(AssessmentsTable.TABLE, values, "_id = ?",
-                new String[] { Float.toString(id) });
+                new String[] { Float.toString(assessment.getId()) });
         return rowsUpdated > 0;
     }
 
-    public boolean updateInstructor(long id, String name, String phone, String email, int fk) {
+    public boolean updateInstructor(Instructor instructor) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(InstructorsTable.COL_NAME, name);
-        values.put(InstructorsTable.COL_PHONE, phone);
-        values.put(InstructorsTable.COL_EMAIL, email);
-        values.put(InstructorsTable.COL_FK, fk);
+        values.put(InstructorsTable.COL_NAME, instructor.getName());
+        values.put(InstructorsTable.COL_PHONE, instructor.getPhone());
+        values.put(InstructorsTable.COL_EMAIL, instructor.getEmail());
+        values.put(InstructorsTable.COL_FK, instructor.getCourseId());
         int rowsUpdated = db.update(InstructorsTable.TABLE, values, "_id = ?",
-                new String[] { Float.toString(id) });
+                new String[] { Float.toString(instructor.getId()) });
         return rowsUpdated > 0;
     }
 
-    public boolean updateNote(long id, String name, String content, int fk) {
+    public boolean updateNote(Note note) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(NotesTable.COL_NAME, name);
-        values.put(NotesTable.COL_CONTENT, content);
-        values.put(NotesTable.COL_FK, fk);
+        values.put(NotesTable.COL_NAME, note.getName());
+        values.put(NotesTable.COL_CONTENT, note.getContent());
+        values.put(NotesTable.COL_FK, note.getCourseId());
         int rowsUpdated = db.update(NotesTable.TABLE, values, "_id = ?",
-                new String[] { Float.toString(id) });
+                new String[] { Float.toString(note.getId()) });
         return rowsUpdated > 0;
     }
 
@@ -373,72 +377,72 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
 //=============================================================Delete Statements===================================================================================
 
 
-    public boolean deleteTerm(long id) {
+    public boolean deleteTerm(Term term) {
         SQLiteDatabase db = getWritableDatabase();
         //Check that term has no courses
         String sql = "select * from " + CoursesTable.TABLE + " where term_id = ?";
-        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(id)});
+        Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(term.getId())});
         if (cursor.moveToFirst()) {
             cursor.close();
             return false;
         }else {
             cursor.close();
             int rowsDeleted = db.delete(TermsTable.TABLE, TermsTable.COL_ID + " = ?",
-                    new String[]{Long.toString(id)});
+                    new String[]{Long.toString(term.getId())});
             return rowsDeleted > 0;
         }
     }
 
 
-    public boolean deleteCourse(long id) {
+    public boolean deleteCourse(Course course) {
         SQLiteDatabase db = getWritableDatabase();
-        deleteAssessments(id);
-        deleteInstructors(id);
-        deleteNotes(id);
+        deleteAssessments(course);
+        deleteInstructors(course);
+        deleteNotes(course);
         int rowsDeleted = db.delete(CoursesTable.TABLE, CoursesTable.COL_ID + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(course.getId()) });
         return rowsDeleted > 0;
     }
 
-    public boolean deleteAssessment(long id) {
+    public boolean deleteAssessment(Assessment assessment) {
         SQLiteDatabase db = getWritableDatabase();
         int rowsDeleted = db.delete(AssessmentsTable.TABLE, AssessmentsTable.COL_ID + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(assessment.getId()) });
         return rowsDeleted > 0;
     }
 
-    public boolean deleteInstructor(long id) {
+    public boolean deleteInstructor(Instructor instructor) {
         SQLiteDatabase db = getWritableDatabase();
         int rowsDeleted = db.delete(InstructorsTable.TABLE, InstructorsTable.COL_ID + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(instructor.getId()) });
         return rowsDeleted > 0;
     }
 
-    public boolean deleteNote(long id) {
+    public boolean deleteNote(Note note) {
         SQLiteDatabase db = getWritableDatabase();
         int rowsDeleted = db.delete(NotesTable.TABLE, NotesTable.COL_ID + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(note.getId()) });
         return rowsDeleted > 0;
     }
 
-    private boolean deleteAssessments(long id){
+    private boolean deleteAssessments(Course course){
         SQLiteDatabase db = getWritableDatabase();
         int rowsDeleted = db.delete(AssessmentsTable.TABLE, AssessmentsTable.COL_FK + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(course.getId()) });
         return rowsDeleted > 0;
     }
 
-    private boolean deleteInstructors(long id) {
+    private boolean deleteInstructors(Course course) {
         SQLiteDatabase db = getWritableDatabase();
         int rowsDeleted = db.delete(InstructorsTable.TABLE, InstructorsTable.COL_FK + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(course.getId()) });
         return rowsDeleted > 0;
     }
 
-    private boolean deleteNotes(long id) {
+    private boolean deleteNotes(Course course) {
         SQLiteDatabase db = getWritableDatabase();
         int rowsDeleted = db.delete(NotesTable.TABLE, NotesTable.COL_FK + " = ?",
-                new String[] { Long.toString(id) });
+                new String[] { Long.toString(course.getId()) });
         return rowsDeleted > 0;
     }
 

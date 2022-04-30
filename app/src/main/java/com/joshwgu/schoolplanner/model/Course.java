@@ -1,18 +1,25 @@
 package com.joshwgu.schoolplanner.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Course {
 
     private int id;
     private String title;
     private String status;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private long startDate;
+    private long endDate;
     private int termId;
 
-    public Course(int id, String title, LocalDate startDate, LocalDate endDate, String status,  int termId){
+
+    public Course( String title, long startDate, long endDate, String status, int termId){
+        this.id = 0;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.termId = termId;
+
+    }
+    public Course(int id, String title, long startDate, long endDate, String status, int termId){
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -22,6 +29,21 @@ public class Course {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTermId() {
+        return termId;
+    }
+
+    public void setTermId(int termId) {
+        this.termId = termId;
+    }
     public String getTitle() {
         return title;
     }
@@ -38,19 +60,19 @@ public class Course {
         this.status = status;
     }
 
-    public LocalDate getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(long endDate) {
         this.endDate = endDate;
     }
 

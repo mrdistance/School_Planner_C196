@@ -8,12 +8,36 @@ public class Instructor {
     private String phone;
     private int courseId;
 
+
+    public Instructor(String name, String phone, String email, int courseId){
+        this.id = 0;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.courseId=courseId;
+    }
     public Instructor(int id, String name, String phone, String email, int courseId){
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.courseId=courseId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public String getName() {

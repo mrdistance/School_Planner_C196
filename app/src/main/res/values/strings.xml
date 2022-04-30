@@ -26,4 +26,6 @@
     <string name="edit">EDIT</string>
     <string name="write_note_here">WRITE NOTE HERE...</string>
     <string name="share">SHARE</string>
+    <string name="start_date">START DATE</string>
+    <string name="end_date">END DATE</string>
 </resources>
