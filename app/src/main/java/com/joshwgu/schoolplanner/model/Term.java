@@ -53,6 +53,10 @@ public class Term {
         this.endDate = endDate;
     }
 
+    public String toString(){
+        return "===============\n" + this.title + ":\nStart - " + this.startDate + "\nEnd - " + this.endDate + "\n===============";
+    }
+
 
 
 }

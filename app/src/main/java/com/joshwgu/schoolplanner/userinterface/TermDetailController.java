@@ -14,6 +14,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.joshwgu.schoolplanner.R;
+import com.joshwgu.schoolplanner.database.ScheduleDatabase;
+import com.joshwgu.schoolplanner.model.Term;
 
 import java.util.Calendar;
 
@@ -22,6 +24,10 @@ public class TermDetailController extends AppCompatActivity {
     private static final String TAG = "TermDetailController";
     private TextView mStartDate;
     private TextView mEndDate;
+    private TextView mNameText;
+    private Intent intentFromTerm;
+    private ScheduleDatabase db;
+    private Term term;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
 
@@ -29,12 +35,26 @@ public class TermDetailController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = new ScheduleDatabase(getApplicationContext());
+        intentFromTerm = getIntent();
         setContentView(R.layout.activity_term_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        String termInfo = intentFromTerm.getStringExtra("Term Info");
 
         mStartDate = (TextView) findViewById(R.id.startDateText);
         mEndDate = (TextView) findViewById(R.id.endDateText);
+        mNameText = (TextView) findViewById(R.id.termNameText);
+
+        if(termInfo != null){
+            String[] termInfoParts = termInfo.split("-");
+            term = new Term(Integer.parseInt(termInfoParts[0]), termInfoParts[1], termInfoParts[2], termInfoParts[3]);
+            mNameText.setText(term.getTitle());
+            mStartDate.setText(term.getStartDate());
+            mEndDate.setText(term.getEndDate());
+            mNameText.setEnabled(false);
+            mStartDate.setEnabled(false);
+            mEndDate.setEnabled(false);
+        }
 
         mStartDate.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -120,14 +140,34 @@ public class TermDetailController extends AppCompatActivity {
     }
 
     public void save(View view) {
+        if(term != null) {
+            term.setTitle(mNameText.getText().toString());
+            term.setStartDate(mStartDate.getText().toString());
+            term.setEndDate(mEndDate.getText().toString());
+            db.updateTerm(term);
+        }else{
+            term = new Term(mNameText.getText().toString(), mStartDate.getText().toString(), mEndDate.getText().toString());
+            db.addTerm(term);
+        }
+        mNameText.setEnabled(false);
+        mStartDate.setEnabled(false);
+        mEndDate.setEnabled(false);
     }
 
     public void edit(View view){
-
+        mNameText.setEnabled(true);
+        mStartDate.setEnabled(true);
+        mEndDate.setEnabled(true);
     }
 
     public void delete(View view) {
+        if(term != null) {
+            db.deleteTerm(term);
+            Intent intent = new Intent(TermDetailController.this, TermController.class);
+            startActivity(intent);
+        }
     }
+
 
 
 }
