@@ -5,12 +5,12 @@ public class Course {
     private int id;
     private String title;
     private String status;
-    private long startDate;
-    private long endDate;
+    private String startDate;
+    private String endDate;
     private int termId;
 
 
-    public Course( String title, long startDate, long endDate, String status, int termId){
+    public Course(String title, String startDate, String endDate, String status, int termId){
         this.id = 0;
         this.title = title;
         this.startDate = startDate;
@@ -19,7 +19,7 @@ public class Course {
         this.termId = termId;
 
     }
-    public Course(int id, String title, long startDate, long endDate, String status, int termId){
+    public Course(int id, String title, String startDate, String endDate, String status, int termId){
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -60,19 +60,19 @@ public class Course {
         this.status = status;
     }
 
-    public long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(long startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public long getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(long endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

@@ -6,33 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".userinterface.CourseDetailController">
 
-    <EditText
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/start_date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/startDateText"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="@+id/startDateText"
+        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/end_date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/endDateText"
+        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintStart_toStartOf="@+id/endDateText"
+        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+
+    <TextView
         android:id="@+id/startDateText"
         android:layout_width="170dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/enter_start_date"
-        android:inputType="date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
 
-    <EditText
+    <TextView
         android:id="@+id/endDateText"
-        android:layout_width="178dp"
+        android:layout_width="170dp"
         android:layout_height="43dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/enter_end_date"
-        android:inputType="date"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
-
+        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
 
     <EditText
-        android:id="@+id/assessmentNameText"
+        android:id="@+id/courseNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -105,7 +137,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
 
     <Button
         android:id="@+id/courseInstructorsButton"
@@ -136,9 +168,9 @@
         android:id="@+id/progressSpinner"
         android:layout_width="235dp"
         android:layout_height="31dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

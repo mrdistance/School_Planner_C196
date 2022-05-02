@@ -1,24 +1,21 @@
 package com.joshwgu.schoolplanner.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Term {
 
     private int id;
     private String title;
-    private long startDate;
-    private long endDate;
+    private String startDate;
+    private String endDate;
 
 
-    public Term( String title, long startDate, long endDate){
+    public Term(String title, String startDate, String endDate){
         this.id = 0;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Term(int id, String title, long startDate, long endDate){
+    public Term(int id, String title, String startDate, String endDate){
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -40,19 +37,19 @@ public class Term {
         this.title = title;
     }
 
-    public long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(long startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public long getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(long endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

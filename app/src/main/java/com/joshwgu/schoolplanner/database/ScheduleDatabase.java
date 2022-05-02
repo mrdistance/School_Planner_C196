@@ -12,9 +12,7 @@ import com.joshwgu.schoolplanner.model.Instructor;
 import com.joshwgu.schoolplanner.model.Note;
 import com.joshwgu.schoolplanner.model.Term;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class ScheduleDatabase extends SQLiteOpenHelper {
@@ -83,14 +81,14 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
         db.execSQL("create table " + TermsTable.TABLE + " (" +
                 TermsTable.COL_ID + " integer primary key autoincrement, " +
                 TermsTable.COL_NAME + " text, " +
-                TermsTable.COL_START_DATE + " integer, "  +
-                TermsTable.COL_END_DATE + " integer)");
+                TermsTable.COL_START_DATE + " text, "  +
+                TermsTable.COL_END_DATE + " text)");
 
         db.execSQL("create table " + CoursesTable.TABLE + " (" +
                 CoursesTable.COL_ID + " integer primary key autoincrement, " +
                 CoursesTable.COL_NAME + " text, " +
-                CoursesTable.COL_START_DATE + " integer, "  +
-                CoursesTable.COL_END_DATE + " integer, " +
+                CoursesTable.COL_START_DATE + " text, "  +
+                CoursesTable.COL_END_DATE + " text, " +
                 CoursesTable.COL_PROGRESS + " text, " +
                 CoursesTable.COL_FK + " integer, " +
                 "foreign key (" + CoursesTable.COL_FK + ") references " + TermsTable.TABLE + "(" + TermsTable.COL_ID + "))");
@@ -98,8 +96,8 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
         db.execSQL("create table " + AssessmentsTable.TABLE + " (" +
                 AssessmentsTable.COL_ID + " integer primary key autoincrement, " +
                 AssessmentsTable.COL_NAME + " text, " +
-                AssessmentsTable.COL_START_DATE + " integer, "  +
-                AssessmentsTable.COL_END_DATE + " integer, " +
+                AssessmentsTable.COL_START_DATE + " text, "  +
+                AssessmentsTable.COL_END_DATE + " text, " +
                 AssessmentsTable.COL_TYPE + " text, "  +
                 AssessmentsTable.COL_FK + " integer, " +
                 "foreign key (" + AssessmentsTable.COL_FK + ") references " + CoursesTable.TABLE + "(" + CoursesTable.COL_ID + "))");
@@ -191,17 +189,16 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
     public ArrayList<Term> getTerms() {
         SQLiteDatabase db = getReadableDatabase();
 
-        String sql = "select * from " + TermsTable.TABLE;
+        String sql = "select * from " + TermsTable.TABLE + " order by " + TermsTable.COL_START_DATE;
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             ArrayList<Term> terms = new ArrayList<>();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Calendar calendar = Calendar.getInstance();
+
             do {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
-                Long startDate = cursor.getLong(2);
-                Long endDate = cursor.getLong(3);
+                String startDate = cursor.getString(2);
+                String endDate = cursor.getString(3);
                 Term term = new Term(id, name, startDate, endDate);
                 terms.add(term);
             } while (cursor.moveToNext());
@@ -215,15 +212,15 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
     public ArrayList<Course> getCourses(Term term) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String sql = "select * from " + CoursesTable.TABLE + " where term_id = ?";
+        String sql = "select * from " + CoursesTable.TABLE + " where term_id = ? order by " + CoursesTable.COL_START_DATE;
         Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(term.getId())});
         if (cursor.moveToFirst()) {
             ArrayList<Course> courses = new ArrayList<>();
             do {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
-                Long startDate = cursor.getLong(2);
-                Long endDate = cursor.getLong(3);
+                String startDate = cursor.getString(2);
+                String endDate = cursor.getString(3);
                 String progress = cursor.getString(4);
                 int termId = cursor.getInt(5);
 
@@ -240,15 +237,15 @@ public class ScheduleDatabase extends SQLiteOpenHelper {
     public ArrayList<Assessment> getAssessments(Course course) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String sql = "select * from " + AssessmentsTable.TABLE + " where course_id = ?";
+        String sql = "select * from " + AssessmentsTable.TABLE + " where course_id = ? order by " + AssessmentsTable.COL_START_DATE;
         Cursor cursor = db.rawQuery(sql, new String [] {String.valueOf(course.getId())});
         if (cursor.moveToFirst()) {
             ArrayList<Assessment> assessments = new ArrayList<>();
             do {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
-                Long startDate = cursor.getLong(2);
-                Long endDate = cursor.getLong(3);
+                String startDate = cursor.getString(2);
+                String endDate = cursor.getString(3);
                 String type = cursor.getString(4);
                 int courseId = cursor.getInt(5);
 
