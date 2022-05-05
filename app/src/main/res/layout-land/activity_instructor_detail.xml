@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/instructorNameTF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="44dp"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="@+id/instructorNameText" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/instructorPhoneTF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="44dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="@+id/instructorPhoneText" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/instructorEmailTF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="44dp"

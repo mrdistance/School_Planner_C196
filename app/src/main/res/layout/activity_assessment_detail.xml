@@ -10,49 +10,49 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="72dp"
         android:text="@string/start_date"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/startDateText"
-        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="@+id/startDateText"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="72dp"
         android:text="@string/end_date"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/endDateText"
-        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/endDateText"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/startDateText"
         android:layout_width="170dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="@string/enter_start_date"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/endDateText"
         android:layout_width="170dp"
         android:layout_height="43dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/enter_end_date"
@@ -60,17 +60,18 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
+
     <EditText
-        android:id="@+id/courseNameText"
+        android:id="@+id/assessmentNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/enter_assessment_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +85,7 @@
         android:onClick="save"
         android:text="@string/save"
         app:layout_constraintStart_toEndOf="@+id/assessmentEditButton"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <Button
         android:id="@+id/assessmentDeleteButton"
@@ -96,7 +97,7 @@
         android:onClick="delete"
         android:text="@string/delete"
         app:layout_constraintEnd_toStartOf="@+id/assessmentEditButton"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <Button
         android:id="@+id/assessmentEditButton"
@@ -108,7 +109,7 @@
         android:text="@string/edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/textView3"
@@ -128,9 +129,9 @@
         android:id="@+id/typeSpinner"
         android:layout_width="260dp"
         android:layout_height="35dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

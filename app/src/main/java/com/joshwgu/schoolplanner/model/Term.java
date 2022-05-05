@@ -54,7 +54,7 @@ public class Term {
     }
 
     public String toString(){
-        return "===============\n" + this.title + ":\nStart - " + this.startDate + "\nEnd - " + this.endDate + "\n===============";
+        return this.title + "\n---------------\nStart - " + this.startDate + "\nEnd - " + this.endDate ;
     }
 
 

@@ -3,6 +3,7 @@ package com.joshwgu.schoolplanner.userinterface;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,8 +38,10 @@ public class TermController extends AppCompatActivity {
                 Button button = new Button(this);
                 button.setText(term.toString());
                 button.setGravity(Gravity.CENTER);
-                button.setTextSize(32);
+                button.setTextSize(20);
+
                 button.setClickable(true);
+
                 button.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -49,11 +52,6 @@ public class TermController extends AppCompatActivity {
                 termsDisplayList.addView(button);
             }
         }
-
-
-
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

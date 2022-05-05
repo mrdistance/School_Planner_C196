@@ -28,6 +28,7 @@ public class TermDetailController extends AppCompatActivity {
     private Intent intentFromTerm;
     private ScheduleDatabase db;
     private Term term;
+    private boolean saved;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
 
@@ -40,7 +41,7 @@ public class TermDetailController extends AppCompatActivity {
         setContentView(R.layout.activity_term_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String termInfo = intentFromTerm.getStringExtra("Term Info");
-
+        saved = false;
         mStartDate = (TextView) findViewById(R.id.startDateText);
         mEndDate = (TextView) findViewById(R.id.endDateText);
         mNameText = (TextView) findViewById(R.id.termNameText);
@@ -54,6 +55,7 @@ public class TermDetailController extends AppCompatActivity {
             mNameText.setEnabled(false);
             mStartDate.setEnabled(false);
             mEndDate.setEnabled(false);
+            saved = true;
         }
 
         mStartDate.setOnClickListener(new View.OnClickListener(){
@@ -135,39 +137,64 @@ public class TermDetailController extends AppCompatActivity {
 
 
     public void goToCourses(View view) {
-        Intent intent = new Intent(TermDetailController.this, CourseController.class);
-        startActivity(intent);
+        if(saved) {
+            Intent intent = new Intent(TermDetailController.this, CourseController.class);
+            intent.putExtra("Term Info", term.getId() + "-" + term.getTitle() + "-" + term.getStartDate() + "-" + term.getEndDate());
+            startActivity(intent);
+        }
     }
 
     public void save(View view) {
-        if(term != null) {
-            term.setTitle(mNameText.getText().toString());
-            term.setStartDate(mStartDate.getText().toString());
-            term.setEndDate(mEndDate.getText().toString());
-            db.updateTerm(term);
+        if(validateFields()) {
+            if (term != null) {
+                term.setTitle(mNameText.getText().toString());
+                term.setStartDate(mStartDate.getText().toString());
+                term.setEndDate(mEndDate.getText().toString());
+                db.updateTerm(term);
+            } else {
+                term = new Term(mNameText.getText().toString(), mStartDate.getText().toString(), mEndDate.getText().toString());
+                term.setId((int) db.addTerm(term));
+
+            }
+            mNameText.setEnabled(false);
+            mStartDate.setEnabled(false);
+            mEndDate.setEnabled(false);
+            saved = true;
         }else{
-            term = new Term(mNameText.getText().toString(), mStartDate.getText().toString(), mEndDate.getText().toString());
-            db.addTerm(term);
+            if(mStartDate.getText().toString().isEmpty()){
+                mStartDate.setHintTextColor(Color.RED);
+            }
+            if(mEndDate.getText().toString().isEmpty()){
+                mEndDate.setHintTextColor(Color.RED);
+            }
+            if(mNameText.getText().toString().isEmpty()){
+                mNameText.setHintTextColor(Color.RED);
+            }
         }
-        mNameText.setEnabled(false);
-        mStartDate.setEnabled(false);
-        mEndDate.setEnabled(false);
+    }
+
+    private boolean validateFields(){
+        if(mStartDate.getText().toString().isEmpty() || mEndDate.getText().toString().isEmpty() || mNameText.getText().toString().isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     public void edit(View view){
         mNameText.setEnabled(true);
         mStartDate.setEnabled(true);
         mEndDate.setEnabled(true);
+        saved = false;
     }
 
     public void delete(View view) {
         if(term != null) {
-            db.deleteTerm(term);
-            Intent intent = new Intent(TermDetailController.this, TermController.class);
-            startActivity(intent);
+            if(db.deleteTerm(term)) {
+                Intent intent = new Intent(TermDetailController.this, TermController.class);
+                startActivity(intent);
+            }else{
+                //todo popup dialog cant delete term with courses
+            }
         }
     }
-
-
-
 }

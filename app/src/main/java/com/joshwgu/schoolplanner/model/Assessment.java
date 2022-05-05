@@ -42,8 +42,17 @@ public class Assessment {
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
+
     public String getType() {
         return type;
+    }
+
+    public int getIntType(){
+        if(type.equals("Objective")){
+            return 0;
+        }else{
+            return 1;
+        }
     }
 
     public void setType(String type) {
@@ -72,5 +81,9 @@ public class Assessment {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String toString(){
+        return this.title + "\n---------------\nSTART - " + this.startDate + "\nEND -" + this.endDate;
     }
 }

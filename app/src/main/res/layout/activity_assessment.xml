@@ -42,8 +42,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <LinearLayout
+            android:id="@+id/assessmentDisplayList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="64dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
+        android:onClick="refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentsScrollView"
+        app:srcCompat="@drawable/ic_baseline_refresh_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

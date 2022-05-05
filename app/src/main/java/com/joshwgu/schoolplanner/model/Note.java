@@ -34,6 +34,10 @@ public class Note {
         return courseId;
     }
 
+    public String toString(){
+        return  this.name + "\n---------------\n" + this.content ;
+    }
+
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }

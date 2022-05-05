@@ -52,8 +52,21 @@ public class Course {
         this.title = title;
     }
 
-    public String getStatus() {
-        return status;
+    public int getIntStatus() {
+
+        if(status.equals("Plan to Take")){
+            return 0;
+        }else if(status.equals("In Progress")){
+            return 1;
+        }else if(status.equals("Completed")){
+            return 2;
+        }else{
+            return 3;
+        }
+    }
+
+    public String getStatus(){
+        return this.status;
     }
 
     public void setStatus(String status) {
@@ -76,5 +89,7 @@ public class Course {
         this.endDate = endDate;
     }
 
-
+    public String toString(){
+        return this.title + "\n---------------\nSTART - " + this.startDate + "\nEND - " + this.endDate;
+    }
 }

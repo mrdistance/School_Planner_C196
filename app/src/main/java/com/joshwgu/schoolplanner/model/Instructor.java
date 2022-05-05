@@ -64,5 +64,9 @@ public class Instructor {
         this.phone = phone;
     }
 
+    public String toString(){
+        return this.name + "\n" + this.phone + "\n" + this.email;
+    }
+
 
 }

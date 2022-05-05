@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="@+id/startDateText"
         app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="@+id/startDateText"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/textView9"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="@+id/endDateText"
         app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="@+id/endDateText"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/startDateText"
@@ -47,7 +47,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <TextView
         android:id="@+id/endDateText"
@@ -61,10 +61,10 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <EditText
-        android:id="@+id/courseNameText"
+        android:id="@+id/assessmentNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -137,7 +137,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
     <Button
         android:id="@+id/courseInstructorsButton"
@@ -171,6 +171,6 @@
         android:layout_marginTop="92dp"
         android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentNameText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
