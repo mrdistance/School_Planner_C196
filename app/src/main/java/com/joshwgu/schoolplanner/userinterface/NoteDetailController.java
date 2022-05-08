@@ -138,5 +138,19 @@ public class NoteDetailController extends AppCompatActivity {
     }
 
     public void share(View view) {
+        if(note != null) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+
+// Supply extra that is plain text
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Note Content");
+            intent.putExtra(Intent.EXTRA_TEXT, note.getContent());
+
+// If at least one app can handle intent, allow user to choose
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                Intent chooser = intent.createChooser(intent, "Share Note");
+                startActivity(chooser);
+            }
+        }
     }
 }

@@ -1,8 +1,13 @@
 package com.joshwgu.schoolplanner.userinterface;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -193,8 +198,22 @@ public class TermDetailController extends AppCompatActivity {
                 Intent intent = new Intent(TermDetailController.this, TermController.class);
                 startActivity(intent);
             }else{
-                //todo popup dialog cant delete term with courses
+
+                AlertDialog alert = new AlertDialog.Builder(TermDetailController.this).create();
+                alert.setTitle("WARNING");
+                alert.setMessage("Courses must be deleted before deleting this Term");
+                alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+
             }
         }
     }
+
+
+
 }

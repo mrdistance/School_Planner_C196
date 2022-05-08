@@ -1,15 +1,21 @@
 package com.joshwgu.schoolplanner.userinterface;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -19,6 +25,12 @@ import com.joshwgu.schoolplanner.R;
 import com.joshwgu.schoolplanner.database.ScheduleDatabase;
 import com.joshwgu.schoolplanner.model.Course;
 
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 public class CourseDetailController extends AppCompatActivity {
@@ -35,6 +47,8 @@ public class CourseDetailController extends AppCompatActivity {
     private String termInfo;
     private boolean saved;
     private Course course;
+    private CheckBox mStartBox;
+    private CheckBox mEndBox;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
 
@@ -53,6 +67,8 @@ public class CourseDetailController extends AppCompatActivity {
         mStartDate = (TextView) findViewById(R.id.startDateText);
         mEndDate = (TextView) findViewById(R.id.endDateText);
         mNameText = (TextView) findViewById(R.id.assessmentNameText);
+        mStartBox = (CheckBox) findViewById(R.id.startReminderBox);
+        mEndBox = (CheckBox) findViewById(R.id.endReminderBox);
         mProgressSpinner = (Spinner) findViewById(R.id.progressSpinner);
         mProgressSpinner.setAdapter(adapter);
 
@@ -68,6 +84,8 @@ public class CourseDetailController extends AppCompatActivity {
             mNameText.setEnabled(false);
             mStartDate.setEnabled(false);
             mEndDate.setEnabled(false);
+            mStartBox.setEnabled(false);
+            mEndBox.setEnabled(false);
             saved = true;
         }
         mStartDate.setOnClickListener(new View.OnClickListener(){
@@ -106,6 +124,8 @@ public class CourseDetailController extends AppCompatActivity {
                 dialog.show();
                 dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
                 dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+
+
             }
         });
 
@@ -161,12 +181,19 @@ public class CourseDetailController extends AppCompatActivity {
             } else {
                 course = new Course(mNameText.getText().toString(), mStartDate.getText().toString(), mEndDate.getText().toString(), mProgressSpinner.getSelectedItem().toString(), Integer.parseInt(termInfo.split("-")[0]));
                 course.setId((int) db.addCourse(course));
-
+            }
+            if(mStartBox.isChecked()){
+                notifyStart();
+            }
+            if(mEndBox.isChecked()){
+                notifyEnd();
             }
             mNameText.setEnabled(false);
             mStartDate.setEnabled(false);
             mEndDate.setEnabled(false);
             mProgressSpinner.setEnabled(false);
+            mStartBox.setEnabled(false);
+            mEndBox.setEnabled(false);
             saved = true;
         }else{
             if(mStartDate.getText().toString().isEmpty()){
@@ -181,6 +208,35 @@ public class CourseDetailController extends AppCompatActivity {
         }
     }
 
+    private void notifyStart(){
+      //todo Logic to check if start of class is within 7 days of current day
+      //    starts a service to monitor
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("Course Start Notification", "Course Start Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        //Check day to notify and set notification for seven days prior
+        //todo change to just datetime, or make sure notification can just take in a date in the future and handle comparisons on its own, localdatetimenow definitely needs to happen in the notification and not
+        //  be determined right now.  determine 7 days before the string selected and set alarm to go off 0800 that day.
+        LocalDateTime dateOfActivity = LocalDateTime.parse(mStartDate.getText().toString() + " 08:00:00", DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        LocalDateTime dateToNotify = dateOfActivity.minus(7, ChronoUnit.DAYS);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(CourseDetailController.this, "Course Start Notification");
+        builder.setContentTitle("Course Start Reminder");
+        builder.setContentText("Course " + course.getTitle() + " is starting in 7 days");
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(CourseDetailController.this);
+        managerCompat.notify(1, builder.build());
+
+    }
+
+    private void notifyEnd(){
+        //todo Logic to check if end of class is within 7 days of current day
+        //  starts a service to monitor
+    }
+
     private boolean validateFields(){
         if(mStartDate.getText().toString().isEmpty() || mEndDate.getText().toString().isEmpty() || mNameText.getText().toString().isEmpty()){
             return false;
@@ -193,6 +249,8 @@ public class CourseDetailController extends AppCompatActivity {
         mStartDate.setEnabled(true);
         mEndDate.setEnabled(true);
         mProgressSpinner.setEnabled(true);
+        mStartBox.setEnabled(true);
+        mEndBox.setEnabled(true);
         saved = false;
     }
 
@@ -231,4 +289,6 @@ public class CourseDetailController extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+
 }

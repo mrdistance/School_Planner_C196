@@ -65,7 +65,7 @@ public class Instructor {
     }
 
     public String toString(){
-        return this.name + "\n" + this.phone + "\n" + this.email;
+        return "NAME: " + this.name + "\nPHONE: " + this.phone + "\nEMAIL: " + this.email;
     }
 
 

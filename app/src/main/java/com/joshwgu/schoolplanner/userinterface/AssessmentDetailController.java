@@ -1,15 +1,22 @@
 package com.joshwgu.schoolplanner.userinterface;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.assist.AssistStructure;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +27,9 @@ import com.joshwgu.schoolplanner.R;
 import com.joshwgu.schoolplanner.database.ScheduleDatabase;
 import com.joshwgu.schoolplanner.model.Assessment;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 public class AssessmentDetailController extends AppCompatActivity {
@@ -38,6 +48,8 @@ public class AssessmentDetailController extends AppCompatActivity {
     private Assessment assessment;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
+    private CheckBox mStartBox;
+    private CheckBox mEndBox;
 
 
     @Override
@@ -55,6 +67,8 @@ public class AssessmentDetailController extends AppCompatActivity {
         mEndDate = (TextView) findViewById(R.id.endDateText);
         mNameText = (EditText) findViewById(R.id.assessmentNameText);
         mTypeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+        mStartBox = (CheckBox) findViewById(R.id.startReminderBox);
+        mEndBox = (CheckBox) findViewById(R.id.endReminderBox);
         mTypeSpinner.setAdapter(adapter);
 
         if(assessmentInfo != null){
@@ -68,6 +82,8 @@ public class AssessmentDetailController extends AppCompatActivity {
             mNameText.setEnabled(false);
             mStartDate.setEnabled(false);
             mEndDate.setEnabled(false);
+            mStartBox.setEnabled(false);
+            mEndBox.setEnabled(false);
             saved = true;
         }
         mStartDate.setOnClickListener(new View.OnClickListener(){
@@ -165,10 +181,19 @@ public class AssessmentDetailController extends AppCompatActivity {
                 assessment.setId((int) db.addAssessment(assessment));
 
             }
+            if(mStartBox.isChecked()){
+                notifyStart();
+            }
+            if(mEndBox.isChecked()){
+                notifyEnd();
+            }
+
             mNameText.setEnabled(false);
             mStartDate.setEnabled(false);
             mEndDate.setEnabled(false);
             mTypeSpinner.setEnabled(false);
+            mStartBox.setEnabled(false);
+            mEndBox.setEnabled(false);
             saved = true;
         }else{
             if(mStartDate.getText().toString().isEmpty()){
@@ -183,6 +208,34 @@ public class AssessmentDetailController extends AppCompatActivity {
         }
     }
 
+
+    private void notifyStart(){
+        //todo Logic to check if start of assessment is today
+        //    starts a service to monitor
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("Assessment Start Notification", "Assessment Start Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        //Check day to notify and set notification for seven days prior
+        //todo add notification for date of activity
+
+        LocalDateTime dateOfActivity = LocalDateTime.parse(mStartDate.getText().toString() + " 08:00:00", DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(AssessmentDetailController.this, "Assessment Start Notification");
+        builder.setContentTitle("Assessment Start Reminder");
+        builder.setContentText("Assessment " + assessment.getTitle() + " is starting today");
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AssessmentDetailController.this);
+        managerCompat.notify(1, builder.build());
+    }
+
+    private void notifyEnd(){
+        //todo Logic to check if end of class is within 7 days of current day
+        //  starts a service to monitor
+    }
+
     private boolean validateFields(){
         if(mStartDate.getText().toString().isEmpty() || mEndDate.getText().toString().isEmpty() || mNameText.getText().toString().isEmpty()){
             return false;
@@ -195,6 +248,8 @@ public class AssessmentDetailController extends AppCompatActivity {
         mStartDate.setEnabled(true);
         mEndDate.setEnabled(true);
         mTypeSpinner.setEnabled(true);
+        mStartBox.setEnabled(true);
+        mEndBox.setEnabled(true);
         saved = false;
     }
 

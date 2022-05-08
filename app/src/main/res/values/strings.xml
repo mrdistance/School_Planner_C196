@@ -38,4 +38,6 @@
         <item>Objective</item>
         <item>Performance</item>
     </string-array>
+    <string name = "sevenDayReminder">7 Day Reminder</string>
+    <string name = "notifyme">Set Reminder</string>
 </resources>
