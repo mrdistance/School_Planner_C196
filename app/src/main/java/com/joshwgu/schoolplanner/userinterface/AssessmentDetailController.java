@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.assist.AssistStructure;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -27,10 +30,14 @@ import com.joshwgu.schoolplanner.R;
 import com.joshwgu.schoolplanner.database.ScheduleDatabase;
 import com.joshwgu.schoolplanner.model.Assessment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AssessmentDetailController extends AppCompatActivity {
 
@@ -181,7 +188,7 @@ public class AssessmentDetailController extends AppCompatActivity {
                 assessment.setId((int) db.addAssessment(assessment));
 
             }
-            if(mStartBox.isChecked()){
+            if(mStartBox.isChecked()) {
                 notifyStart();
             }
             if(mEndBox.isChecked()){
@@ -210,30 +217,35 @@ public class AssessmentDetailController extends AppCompatActivity {
 
 
     private void notifyStart(){
-        //todo Logic to check if start of assessment is today
-        //    starts a service to monitor
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("Assessment Start Notification", "Assessment Start Notification", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        Date dateOfActivity = null;
+        try {
+            dateOfActivity = sdf.parse(mStartDate.getText().toString());
+        }catch(ParseException e){
+            e.printStackTrace();
         }
-        //Check day to notify and set notification for seven days prior
-        //todo add notification for date of activity
-
-        LocalDateTime dateOfActivity = LocalDateTime.parse(mStartDate.getText().toString() + " 08:00:00", DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(AssessmentDetailController.this, "Assessment Start Notification");
-        builder.setContentTitle("Assessment Start Reminder");
-        builder.setContentText("Assessment " + assessment.getTitle() + " is starting today");
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
-        builder.setAutoCancel(true);
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(AssessmentDetailController.this);
-        managerCompat.notify(1, builder.build());
+        Long trigger = dateOfActivity.getTime();
+        Intent intent = new Intent(AssessmentDetailController.this, MyReceiver.class);
+        intent.putExtra("key","Assessment " + assessment.getTitle() + " starts today" );
+        PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetailController.this,MainActivity.notificationNumberAlert++,intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
     }
 
     private void notifyEnd(){
-        //todo Logic to check if end of class is within 7 days of current day
-        //  starts a service to monitor
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        Date dateOfActivity = null;
+        try {
+            dateOfActivity = sdf.parse(mEndDate.getText().toString());
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        Long trigger = dateOfActivity.getTime();
+        Intent intent = new Intent(AssessmentDetailController.this, MyReceiver.class);
+        intent.putExtra("key","Assessment " + assessment.getTitle() + " ends today" );
+        PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetailController.this,MainActivity.notificationNumberAlert++,intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
     }
 
     private boolean validateFields(){

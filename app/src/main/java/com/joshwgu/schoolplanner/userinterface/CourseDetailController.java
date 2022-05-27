@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -25,6 +28,7 @@ import com.joshwgu.schoolplanner.R;
 import com.joshwgu.schoolplanner.database.ScheduleDatabase;
 import com.joshwgu.schoolplanner.model.Course;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -32,6 +36,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class CourseDetailController extends AppCompatActivity {
 
@@ -208,33 +214,37 @@ public class CourseDetailController extends AppCompatActivity {
         }
     }
 
+
     private void notifyStart(){
-      //todo Logic to check if start of class is within 7 days of current day
-      //    starts a service to monitor
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("Course Start Notification", "Course Start Notification", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        Date dateOfActivity = null;
+        try {
+            dateOfActivity = sdf.parse(mStartDate.getText().toString());
+        }catch(ParseException e){
+            e.printStackTrace();
         }
-        //Check day to notify and set notification for seven days prior
-        //todo change to just datetime, or make sure notification can just take in a date in the future and handle comparisons on its own, localdatetimenow definitely needs to happen in the notification and not
-        //  be determined right now.  determine 7 days before the string selected and set alarm to go off 0800 that day.
-        LocalDateTime dateOfActivity = LocalDateTime.parse(mStartDate.getText().toString() + " 08:00:00", DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
-        LocalDateTime dateToNotify = dateOfActivity.minus(7, ChronoUnit.DAYS);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(CourseDetailController.this, "Course Start Notification");
-        builder.setContentTitle("Course Start Reminder");
-        builder.setContentText("Course " + course.getTitle() + " is starting in 7 days");
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
-        builder.setAutoCancel(true);
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(CourseDetailController.this);
-        managerCompat.notify(1, builder.build());
-
+        Long trigger = dateOfActivity.getTime();
+        Intent intent = new Intent(CourseDetailController.this, MyReceiver.class);
+        intent.putExtra("key","Course " + course.getTitle() + " starts today" );
+        PendingIntent sender = PendingIntent.getBroadcast(CourseDetailController.this,MainActivity.notificationNumberAlert++,intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
     }
 
     private void notifyEnd(){
-        //todo Logic to check if end of class is within 7 days of current day
-        //  starts a service to monitor
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        Date dateOfActivity = null;
+        try {
+            dateOfActivity = sdf.parse(mEndDate.getText().toString());
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        Long trigger = dateOfActivity.getTime();
+        Intent intent = new Intent(CourseDetailController.this, MyReceiver.class);
+        intent.putExtra("key","Course " + course.getTitle() + " ends today" );
+        PendingIntent sender = PendingIntent.getBroadcast(CourseDetailController.this,MainActivity.notificationNumberAlert++,intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,trigger,sender);
     }
 
     private boolean validateFields(){
